@@ -32,7 +32,6 @@ public class RuleEngine {
 
 	public static void main(String[] args) throws Exception {
 		RuleEngine re = new RuleEngine();
-		re.setRules(SAMPLE_RULES);
 		re.doSample();
 	}
 
@@ -53,6 +52,8 @@ public class RuleEngine {
 	private void doSample() throws IOException {
 		logToSysout = true;
 		
+		setRules(SAMPLE_RULES);
+
 		Map inputMap = new HashMap();
 		inputMap.put("uno", "1");
 		inputMap.put("due", "2");
