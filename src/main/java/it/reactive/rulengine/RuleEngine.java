@@ -18,11 +18,11 @@ public class RuleEngine {
 
 	private static String[] SAMPLE_RULES = { "rule01", "rule02" };
 
-	private ThreadLocal<Context> ruleContext = new ThreadLocal<Context>();
-
 	private boolean logToSysout = false;
 
-	private Map<String, Value> ruleEvalMap = new HashMap<String, Value>();
+	private ThreadLocal<Context> ruleContext = new ThreadLocal<Context>();
+
+	private ThreadLocal<Map<String, Value>> ruleEvalMap = new ThreadLocal<Map<String, Value>>();
 
 	public static void main(String[] args) throws Exception {
 		RuleEngine re = new RuleEngine();
@@ -72,14 +72,23 @@ public class RuleEngine {
 	}
 
 	private Value getRuleEval(String rule) throws IOException {
-		Value ruleEval = ruleEvalMap.get(rule);
+		Value ruleEval = getRuleEvalMap().get(rule);
 		if (ruleEval == null) {
 			Path rulePath = Paths.get("./src/test/resources/" + rule + ".js");
 			String ruleText = new String(Files.readAllBytes(rulePath));
 			ruleEval = getRuleContext().eval("js", "(" + ruleText + ")");
-			ruleEvalMap.put(rule, ruleEval);
+			getRuleEvalMap().put(rule, ruleEval);
 		}
 		return ruleEval;
+	}
+
+	private Map<String, Value> getRuleEvalMap() {
+		Map<String, Value> m = ruleEvalMap.get();
+		if (m == null) {
+			m = new HashMap<String, Value>();
+			ruleEvalMap.set(m);
+		}
+		return m;
 	}
 
 	private Context getRuleContext() {
