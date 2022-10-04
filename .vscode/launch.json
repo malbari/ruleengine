@@ -1,0 +1,20 @@
+{
+    // Usare IntelliSense per informazioni sui possibili attributi.
+    // Al passaggio del mouse vengono visualizzate le descrizioni degli attributi esistenti.
+    // Per altre informazioni, visitare: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch RuleEngine",
+            "request": "launch",
+            "mainClass": "it.reactive.rulengine.RuleEngine",
+            "projectName": "rulenegine"
+        },
+        {
+            "type": "java8+",
+            "request": "launch",
+            "name": "Launch Java 8+ App"
+        }
+    ]
+}
